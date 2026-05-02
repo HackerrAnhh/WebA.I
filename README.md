@@ -66,9 +66,11 @@ Khi tao service tren Render, bat buoc dat `ADMIN_PASSWORD` toi thieu 8 ky tu. Ba
 
 Huong dan chi tiet Docker/Render nam trong `docs/deploy-render-docker.md`.
 
-### Luu Y Ve Data Tren Render
+### Luu Y Ve Data Tren Render Free
 
-Du an hien luu data bang file JSON. `render.yaml` da cau hinh persistent disk mount tai `/app/data` de giu du lieu qua restart/redeploy. Persistent disk tren Render yeu cau paid web service; neu bo disk de chay free/demo, data ghi moi co the mat khi service restart hoac redeploy.
+Du an hien luu data bang file JSON. `render.yaml` dang cau hinh `plan: free` va khong gan persistent disk, nen data ghi moi nhu don hang, user dang ky, san pham sua tu admin co the mat khi service restart/redeploy/spin down.
+
+Neu can giu data on dinh, doi service sang paid plan va them persistent disk mount tai `/app/data`, hoac chuyen `data/*.json` sang Render Postgres.
 
 Ve lau dai, nen chuyen `data/*.json` sang Render Postgres hoac mot database quan ly rieng neu site bat dau co nguoi dung that.
 

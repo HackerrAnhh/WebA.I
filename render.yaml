@@ -2,14 +2,10 @@ services:
   - type: web
     name: webbanai
     runtime: docker
-    plan: starter
+    plan: free
     dockerfilePath: docker/Dockerfile
     dockerContext: .
     healthCheckPath: /healthz
-    disk:
-      name: webbanai-data
-      mountPath: /app/data
-      sizeGB: 1
     envVars:
       - key: NODE_ENV
         value: production

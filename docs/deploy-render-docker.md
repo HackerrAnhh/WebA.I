@@ -55,9 +55,10 @@ docker compose -f docker/docker-compose.yml down
 - `dockerfilePath: docker/Dockerfile`
 - `dockerContext: .`
 - `healthCheckPath: /healthz`
-- persistent disk mount `/app/data`
+- `plan: free`
+- khong gan persistent disk
 
-Luu y: `render.yaml` dang dung `plan: starter` de ho tro persistent disk. Neu chay demo khong can giu data sau restart/redeploy, co the bo block `disk`, nhung cac don hang/san pham ghi moi co the mat khi service khoi dong lai.
+Luu y: Free web service khong ho tro persistent disk. App van deploy duoc de demo, nhung cac don hang/san pham/user ghi moi vao file JSON co the mat khi service restart/redeploy/spin down.
 
 ## Deploy Thu Cong Tren Render
 
@@ -75,10 +76,8 @@ Luu y: `render.yaml` dang dung `plan: starter` de ho tro persistent disk. Neu ch
    - `JWT_SECRET=<tao gia tri random manh>`
    - `ADMIN_USERNAME=admin`
    - `ADMIN_PASSWORD=<mat khau admin toi thieu 8 ky tu>`
-7. Advanced -> Disk:
-   - Mount path: `/app/data`
-   - Size: `1GB` hoac lon hon.
+7. Instance type: Free.
 
 ## Luu Y
 
-Render web service phai bind `0.0.0.0` va dung `PORT` Render cap. Persistent disk chi giu thay doi trong mount path, nen app ghi JSON vao `/app/data`.
+Render web service phai bind `0.0.0.0` va dung `PORT` Render cap. Khi can giu data that, dung paid instance co persistent disk mount `/app/data` hoac chuyen sang database.
