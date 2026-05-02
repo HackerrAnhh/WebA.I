@@ -45,8 +45,31 @@ const MOBILE_IMAGE_SOURCES = {
     'assets/gemini.png': 'assets/gemini-640.jpg'
 };
 const MIN_PASSWORD_LENGTH = 8;
-const REDUCE_PRODUCT_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    || window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+const PRODUCT_MOTION_QUERIES = [
+    window.matchMedia('(prefers-reduced-motion: reduce)'),
+    window.matchMedia('(hover: none)'),
+    window.matchMedia('(pointer: coarse)'),
+    window.matchMedia('(any-pointer: coarse)'),
+    window.matchMedia('(max-width: 1180px)'),
+    window.matchMedia('(orientation: landscape) and (max-height: 720px)')
+];
+let REDUCE_PRODUCT_MOTION = false;
+
+function shouldReduceProductMotion() {
+    return PRODUCT_MOTION_QUERIES.some(query => query.matches)
+        || Number(navigator.maxTouchPoints || 0) > 0;
+}
+
+function syncProductMotionMode() {
+    REDUCE_PRODUCT_MOTION = shouldReduceProductMotion();
+    document.documentElement.classList.toggle('reduce-product-motion', REDUCE_PRODUCT_MOTION);
+}
+
+syncProductMotionMode();
+PRODUCT_MOTION_QUERIES.forEach(query => {
+    if (query.addEventListener) query.addEventListener('change', syncProductMotionMode);
+    else if (query.addListener) query.addListener(syncProductMotionMode);
+});
 
 function getProductTheme(themeId = '') {
     return PRODUCT_THEMES.find(theme => theme.id === themeId) || PRODUCT_THEMES[0];

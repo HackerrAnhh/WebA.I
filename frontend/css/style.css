@@ -1388,7 +1388,7 @@ select option {
     }
 }
 
-@media (max-width: 768px), (hover: none) and (pointer: coarse) {
+@media (max-width: 1180px), (hover: none), (pointer: coarse), (any-pointer: coarse), (orientation: landscape) and (max-height: 720px) {
     .navbar,
     .header-content,
     .product-visual-copy,
@@ -1401,11 +1401,36 @@ select option {
         -webkit-backdrop-filter: none !important;
     }
 
+    .product-image-header {
+        height: auto;
+        padding: 0.65rem;
+    }
+
+    .product-image-header .product-visual-content {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1;
+    }
+
+    .product-image-header .product-img-container {
+        aspect-ratio: 1 / 1;
+    }
+
     .product-card {
         background: linear-gradient(135deg, var(--card-theme-a), var(--card-theme-b), var(--card-theme-c));
         box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
         transition: none;
         contain-intrinsic-size: 470px;
+    }
+
+    .product-card.is-out-of-stock .card-inner {
+        filter: none;
+    }
+
+    .out-of-stock-overlay {
+        display: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
     }
 
     .product-card::before,
@@ -1421,6 +1446,12 @@ select option {
         transform: none;
         filter: none;
         box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
+    }
+
+    .product-fill-img {
+        opacity: 0.24;
+        filter: none;
+        transform: none;
     }
 
     .product-visual-content {
@@ -1463,6 +1494,105 @@ select option {
     .typing-dot {
         animation: none !important;
     }
+}
+
+.reduce-product-motion .navbar,
+.reduce-product-motion .header-content,
+.reduce-product-motion .product-visual-copy,
+.reduce-product-motion .stock-pill,
+.reduce-product-motion .engine-badge,
+.reduce-product-motion .modal-overlay,
+.reduce-product-motion .cart-sidebar-overlay,
+.reduce-product-motion .success-notice-overlay {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+.reduce-product-motion .product-image-header {
+    height: auto;
+    padding: 0.65rem;
+}
+
+.reduce-product-motion .product-image-header .product-visual-content,
+.reduce-product-motion .product-image-header .product-img-container {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+}
+
+.reduce-product-motion .product-card {
+    background: linear-gradient(135deg, var(--card-theme-a), var(--card-theme-b), var(--card-theme-c));
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
+    transition: none;
+    contain-intrinsic-size: 470px;
+}
+
+.reduce-product-motion .product-card.is-out-of-stock .card-inner {
+    filter: none;
+}
+
+.reduce-product-motion .out-of-stock-overlay {
+    display: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+.reduce-product-motion .product-card::before,
+.reduce-product-motion .product-image-aura,
+.reduce-product-motion .product-img-container::after,
+.reduce-product-motion .success-notice-card::before {
+    display: none !important;
+    animation: none !important;
+}
+
+.reduce-product-motion .product-card:hover,
+.reduce-product-motion .product-card:hover .product-main-img {
+    transform: none;
+    filter: none;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
+}
+
+.reduce-product-motion .product-fill-img {
+    opacity: 0.24;
+    filter: none;
+    transform: none;
+}
+
+.reduce-product-motion .product-visual-content {
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+}
+
+.reduce-product-motion .product-main-img {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    object-fit: contain;
+    object-position: center center;
+    filter: none;
+    transform: none;
+    transition: none;
+    animation: none !important;
+    will-change: auto;
+}
+
+.reduce-product-motion .stock-pill-ok,
+.reduce-product-motion .stock-pill-low,
+.reduce-product-motion .stock-pill-out,
+.reduce-product-motion .discount-block,
+.reduce-product-motion .discount,
+.reduce-product-motion .chat-trigger,
+.reduce-product-motion .chat-window,
+.reduce-product-motion .modal-content,
+.reduce-product-motion .cart-sidebar-content {
+    box-shadow: none;
+}
+
+.reduce-product-motion .discount-block::before,
+.reduce-product-motion .discount::before,
+.reduce-product-motion .typing-dot {
+    animation: none !important;
 }
 
 /* ─── Auth UI ─────────────────────────────────────────────────────────────── */
