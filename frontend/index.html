@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemisocial Premium Shop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=notice-ui-chatbot-fix-20260502">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#FF8A00"/>
+                            <path d="M2 17L12 22L22 17" stroke="#FF8A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M2 12L12 17L22 12" stroke="#FF8A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="logo-text">
+                        <span class="logo-main">GEMISOCIAL</span>
+                        <span class="logo-sub">PREMIUM SHOP</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-center">
+                <div class="search-box">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 10px; opacity: 0.5;">
+                        <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" id="globalSearchInput" placeholder="Tìm kiếm sản phẩm...">
+                    <button id="btnGlobalSearch" class="btn-otp" style="border-radius: 8px; margin-right: 5px; background: var(--accent-orange); color: white; padding: 4px 12px; font-size: 0.8rem;">Tìm</button>
+                </div>
+                
+                <div class="tool-2fa">
+                    <span class="shield-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 22S8 18 8 12V5L12 2L16 5V12C16 18 12 22 12 22Z" stroke="#FF5C00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 8V12L14 14" stroke="#FF5C00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        2FA
+                    </span>
+                    <input type="text" placeholder="Paste Secret Key...">
+                    <button class="btn-otp">OTP</button>
+                    <span class="code-display">000000</span>
+                </div>
+            </div>
+
+            <div class="nav-right">
+                <!-- Auth area -->
+                <div id="authArea">
+                    <!-- Logged out state -->
+                    <button class="nav-login-btn" id="openLoginModal">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        Đăng nhập
+                    </button>
+                </div>
+                <!-- Logged in state (hidden by default) -->
+                <div id="userArea" style="display:none; align-items:center; gap:0.5rem;">
+                    <span id="navUsername" class="nav-username"></span>
+                    <button id="adminDashBtn" class="nav-admin-btn" style="display:none;" onclick="window.open('/admin.html','_blank')">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                        Admin
+                    </button>
+                    <button id="btnLogoutFront" class="icon-btn" title="Đăng xuất" style="color:var(--text-secondary);">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                    </button>
+                </div>
+
+                <button class="icon-btn cart-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16 11V7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7V11M5 9H19L20 21H4L5 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="badge">0</span>
+                </button>
+                <button class="icon-btn settings-btn" aria-label="Toggle Theme">
+                    <svg class="theme-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10.3246 4.31731C10.751 2.5609 13.249 2.5609 13.6754 4.31731C13.9508 5.45193 15.2507 5.99038 16.2478 5.38285C17.7913 4.44239 19.5576 6.2087 18.6172 7.75218C18.0096 8.74925 18.5481 10.0492 19.6827 10.3246C21.4391 10.751 21.4391 13.249 19.6827 13.6754C18.5481 13.9508 18.0096 15.2507 18.6172 16.2478C19.5576 17.7913 17.7913 19.5576 16.2478 18.6172C15.2507 18.0096 13.9508 18.5481 13.6754 19.6827C13.249 21.4391 10.751 21.4391 10.3246 19.6827C10.0492 18.5481 8.74925 18.0096 7.75218 18.6172C6.2087 19.5576 4.44239 17.7913 5.38285 16.2478C5.99038 15.2507 5.45193 13.9508 4.31731 13.6754C2.5609 13.249 2.5609 10.751 4.31731 10.3246C5.45193 10.0492 5.99038 8.74925 5.38285 7.75218C4.44239 6.2087 6.2087 4.44239 7.75218 5.38285C8.74925 5.99038 10.0492 5.45193 10.3246 4.31731Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <button class="nav-contact-btn" id="openContactModal">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 11.5C21 16.75 16.52 21 12 21C10.63 21 9.35 20.67 8.24 20.12C8.03 20.02 7.77 20 7.55 20.06L4.72 20.84C4.31 20.95 3.92 20.6 4.02 20.2L4.71 17.37C4.78 17.1 4.76 16.82 4.63 16.56C4.22 15.7 4 14.74 4 13.72C4 8.47 8.48 4.22 13 4.22C17.52 4.22 21 8.47 21 11.5Z" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Liên hệ
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <header class="hero">
+            <div class="hero-badge">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" fill="#FF5C00" stroke="#FF5C00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                PREMIUM AI ACCOUNTS
+            </div>
+            <h1 class="hero-title">Tài Nguyên Số & <span class="text-gradient">AI Premium</span></h1>
+            <p class="hero-subtitle">UY TÍN TẠO NIỀM TIN!</p>
+            <div class="promo-banner">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FF5C00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fire-icon">
+                    <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
+                </svg>
+                <span>KHUYẾN MÃI CỰC KHỦNG: GIẢM GIÁ 50% TẤT CẢ SẢN PHẨM – ÁP DỤNG ĐẾN HẾT THÁNG 5</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FF5C00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fire-icon hide-on-mobile">
+                    <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
+                </svg>
+            </div>
+        </header>
+
+        <!-- Product Grid – populated by script.js via backend API -->
+        <section class="product-grid" id="productGrid">
+
+            <!-- ChatGPT Plus -->
+            <div class="product-card" style="cursor: pointer;" data-id="chatgpt-plus" data-plans='[{"name":"1 Tháng","price":130000,"original":260000},{"name":"3 Tháng","price":350000,"original":780000},{"name":"6 Tháng","price":650000,"original":1560000}]' data-features='["Truy cập GPT-4o không giới hạn tốc độ cao","Tạo hình ảnh với DALL-E 3","Phân tích dữ liệu (Advanced Data Analysis)","Sử dụng kho Plugins và Custom GPTs","Bảo hành 1 đổi 1 suốt thời gian sử dụng"]' onclick="openProductModal(this)">
+                <div class="card-inner">
+                    <div class="card-header bg-chatgpt">
+                        <div class="badge-top-right">1 GÓI</div>
+                        <div class="header-content">
+                            <div class="engine-badge">PLUS ENGINE</div>
+                            <div class="app-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2Z" fill="white"/>
+                                    <path d="M8 11H9V13H8V11ZM15 11H16V13H15V11ZM11 15H13V16H11V15Z" fill="#10A37F"/>
+                                </svg>
+                            </div>
+                            <h3>ChatGPT</h3>
+                            <p class="app-subtitle">AI WORKSTATION</p>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h4>ChatGPT Plus</h4>
+                        <p class="description">Truy cập GPT-4o không giới hạn, phù hợp học tập, làm việc và sáng tạo nội dung hằng ngày.</p>
+                        <div class="pricing">
+                            <div class="price-info">
+                                <span class="prefix">Chỉ từ</span>
+                                <del>260.000đ</del>
+                                <span class="price-now">130.000đ/Tháng</span>
+                            </div>
+                            <div class="discount">-50%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ChatGPT Business -->
+            <div class="product-card" style="cursor: pointer;" data-id="chatgpt-business" data-plans='[{"name":"1 Tháng","price":100000,"original":200000},{"name":"3 Tháng","price":280000,"original":600000},{"name":"6 Tháng","price":500000,"original":1200000}]' data-features='["Bao gồm tất cả tính năng của ChatGPT Plus","Giới hạn tin nhắn gấp 3 lần bản Plus","Độ ổn định cực cao, ít bị lỗi mạng","Workspace riêng biệt bảo mật dữ liệu","Hỗ trợ ưu tiên 24/7"]' onclick="openProductModal(this)">
+                <div class="card-inner">
+                    <div class="card-header bg-chatgpt-business">
+                        <div class="badge-top-right">1 GÓI</div>
+                        <div class="header-content">
+                            <div class="engine-badge">BUSINESS SUITE</div>
+                            <div class="app-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2Z" fill="white"/>
+                                    <path d="M8 11H9V13H8V11ZM15 11H16V13H15V11ZM11 15H13V16H11V15Z" fill="#2563EB"/>
+                                </svg>
+                            </div>
+                            <h3>ChatGPT</h3>
+                            <p class="app-subtitle">TEAM POWER</p>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h4>ChatGPT Business</h4>
+                        <p class="description">Giới hạn x3 Plus, ổn định cao, phù hợp team nhỏ và người dùng cần hiệu suất tốt hơn Plus.</p>
+                        <div class="pricing">
+                            <div class="price-info">
+                                <span class="prefix">Chỉ từ</span>
+                                <del>200.000đ</del>
+                                <span class="price-now">100.000đ/Tháng</span>
+                            </div>
+                            <div class="discount">-50%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ChatGPT Pro -->
+            <div class="product-card" style="cursor: pointer;" data-id="chatgpt-pro" data-plans='[{"name":"1 Tháng","price":1000000,"original":2000000},{"name":"1 Năm","price":10000000,"original":24000000}]' data-features='["Dành cho người dùng hạng nặng (Deep AI Core)","Mô hình xử lý o1-pro tốc độ cực cao","Không giới hạn 컨텍스트","Hỗ trợ API cao cấp","Bảo mật dữ liệu tuyệt đối (Do Not Train)"]' onclick="openProductModal(this)">
+                <div class="card-inner">
+                    <div class="card-header bg-chatgpt-pro">
+                        <div class="badge-top-right">1 GÓI</div>
+                        <div class="header-content">
+                            <div class="engine-badge">PRO MAX</div>
+                            <div class="app-icon black-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2Z" fill="#111"/>
+                                    <path d="M8 11H9V13H8V11ZM15 11H16V13H15V11ZM11 15H13V16H11V15Z" fill="white"/>
+                                </svg>
+                            </div>
+                            <h3>ChatGPT</h3>
+                            <p class="app-subtitle">DEEP AI CORE</p>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h4>ChatGPT Pro</h4>
+                        <p class="description">Gói hiệu năng cao cho người dùng chuyên sâu, cần tốc độ, độ ổn định và giới hạn mạnh hơn.</p>
+                        <div class="pricing">
+                            <div class="price-info">
+                                <span class="prefix">Chỉ từ</span>
+                                <del>2.000.000đ</del>
+                                <span class="price-now text-yellow">1.000.000đ/Tháng</span>
+                            </div>
+                            <div class="discount">-50%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gemini Pro -->
+            <div class="product-card" style="cursor: pointer;" data-id="gemini-pro" data-plans='[{"name":"1 Năm","price":160000,"original":320000}]' data-features='["Google One AI Premium (Gemini Advanced)","Tặng kèm 5TB Google Drive lưu trữ","Sử dụng Gemini trong Docs, Gmail, Slides","Tốc độ phản hồi cực nhanh","Bảo hành trọn đời gói"]' onclick="openProductModal(this)">
+                <div class="card-inner">
+                    <div class="card-header bg-gemini">
+                        <div class="badge-top-right">1 GÓI</div>
+                        <div class="header-content">
+                            <div class="engine-badge">5TB DRIVE</div>
+                            <div class="app-icon purple-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2Z" fill="white"/>
+                                    <path d="M12 6L13.5 10.5L18 12L13.5 13.5L12 18L10.5 13.5L6 12L10.5 10.5L12 6Z" fill="#8B5CF6"/>
+                                </svg>
+                            </div>
+                            <h3>Gemini</h3>
+                            <p class="app-subtitle">ANTIGRAVITY</p>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h4>Gemini Pro + Antigravity</h4>
+                        <p class="description">Kèm 5TB Drive, gói năm, phù hợp người dùng hệ sinh thái Google và lưu trữ dung lượng lớn.</p>
+                        <div class="pricing">
+                            <div class="price-info">
+                                <span class="prefix">Chỉ từ</span>
+                                <del>320.000đ</del>
+                                <span class="price-now text-yellow">160.000đ/Năm</span>
+                            </div>
+                            <div class="discount">-50%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grammarly Pro -->
+            <div class="product-card" style="cursor: pointer;" data-id="grammarly-pro" data-plans='[{"name":"1 Năm","price":850000,"original":1700000}]' data-features='["Kiểm tra ngữ pháp và chính tả nâng cao","Đề xuất viết lại câu tự nhiên hơn","Phát hiện đạo văn (Plagiarism checker)","Hỗ trợ cài đặt trên mọi thiết bị và trình duyệt","Tài khoản dùng riêng, bảo mật 100%"]' onclick="openProductModal(this)">
+                <div class="card-inner">
+                    <div class="card-header bg-grammarly">
+                        <div class="badge-top-right">1 GÓI</div>
+                        <div class="header-content">
+                            <div class="engine-badge">WRITE LAB</div>
+                            <div class="app-icon green-icon">
+                                <h2>G</h2>
+                            </div>
+                            <h3>grammarly</h3>
+                            <p class="app-subtitle">GRAMMAR BOOST</p>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h4>Grammarly Pro</h4>
+                        <p class="description">Trợ lý viết tiếng Anh chuyên nghiệp cho học tập, email công việc, CV và nội dung quốc tế.</p>
+                        <div class="pricing">
+                            <div class="price-info">
+                                <span class="prefix">Chỉ từ</span>
+                                <del>1.700.000đ</del>
+                                <span class="price-now text-yellow">850.000đ/Năm</span>
+                            </div>
+                            <div class="discount">-50%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gemini Ultra -->
+            <div class="product-card" style="cursor: pointer;" data-id="gemini-ultra" data-plans='[{"name":"1 Tháng","price":320000,"original":640000},{"name":"3 Tháng","price":900000,"original":1920000}]' data-features='["Truy cập mô hình Gemini Ultra mới nhất","Khả năng suy luận code và logic siêu việt","Xử lý đa phương tiện (Video, Hình ảnh, Âm thanh)","Hiệu năng Antigravity Ultra","Hỗ trợ phân tích dữ liệu lớn"]' onclick="openProductModal(this)">
+                <div class="card-inner">
+                    <div class="card-header bg-gemini-ultra">
+                        <div class="badge-top-right">1 GÓI</div>
+                        <div class="header-content">
+                            <div class="engine-badge">ULTRA ORBIT</div>
+                            <div class="app-icon purple-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2Z" fill="white"/>
+                                    <path d="M12 6L13.5 10.5L18 12L13.5 13.5L12 18L10.5 13.5L6 12L10.5 10.5L12 6Z" fill="#C026D3"/>
+                                </svg>
+                            </div>
+                            <h3>Gemini</h3>
+                            <p class="app-subtitle">ANTIGRAVITY</p>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h4>Gemini Ultra + Antigravity</h4>
+                        <p class="description">Gói Gemini Ultra cho người dùng cần hiệu năng AI mạnh hơn, chuyên Antigravity Ultra.</p>
+                        <div class="pricing">
+                            <div class="price-info">
+                                <span class="prefix">Chỉ từ</span>
+                                <del>640.000đ</del>
+                                <span class="price-now text-yellow">320.000đ/Tháng</span>
+                            </div>
+                            <div class="discount">-50%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CapCut Pro -->
+            <div class="product-card" style="cursor: pointer;" data-id="capcut-pro" data-plans='[{"name":"1 Tháng","price":30000,"original":60000},{"name":"1 Năm","price":300000,"original":720000}]' data-features='["Mở khóa toàn bộ hiệu ứng, âm thanh, filter Pro","Xuất video 4K không dính logo","Chức năng AI tự động tạo caption siêu chuẩn","Công cụ xóa phông thông minh","Lưu trữ đám mây 100GB"]' onclick="openProductModal(this)">
+                <div class="card-inner">
+                    <div class="card-header bg-capcut">
+                        <div class="badge-top-right">1 GÓI</div>
+                        <div class="header-content">
+                            <div class="engine-badge">VIDEO STUDIO</div>
+                            <div class="app-icon teal-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2Z" fill="white"/>
+                                    <path d="M8 8H13L16 12L13 16H8L11 12L8 8Z" fill="#0D9488"/>
+                                </svg>
+                            </div>
+                            <h3>CapCut</h3>
+                            <p class="app-subtitle">EDIT FLOW</p>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h4>CapCut Pro</h4>
+                        <p class="description">Chỉnh sửa video chuyên nghiệp, phù hợp TikTok, Reels, Shorts và content bán hàng.</p>
+                        <div class="pricing">
+                            <div class="price-info">
+                                <span class="prefix">Chỉ từ</span>
+                                <del>60.000đ</del>
+                                <span class="price-now text-yellow">30.000đ/Tháng</span>
+                            </div>
+                            <div class="discount">-50%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Canva Pro -->
+            <div class="product-card" style="cursor: pointer;" data-id="canva-pro" data-plans='[{"name":"1 Năm","price":30000,"original":60000},{"name":"Vĩnh viễn","price":150000,"original":300000}]' data-features='["Hàng triệu template, hình ảnh, video Premium","Công cụ xóa nền 1 chạm thần thánh","Magic Studio: Tạo hình ảnh bằng AI","Resize ảnh tự động đa nền tảng","Thêm font chữ tùy biến"]' onclick="openProductModal(this)">
+                <div class="card-inner">
+                    <div class="card-header bg-canva">
+                        <div class="badge-top-right">1 GÓI</div>
+                        <div class="header-content">
+                            <div class="engine-badge">DESIGN KIT</div>
+                            <div class="app-icon blue-icon">
+                                <h2>C</h2>
+                            </div>
+                            <h3>Canva</h3>
+                            <p class="app-subtitle">CREATIVE PACK</p>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h4>Canva Pro</h4>
+                        <p class="description">Thiết kế Premium không giới hạn, phù hợp banner, logo, social post và tài liệu bán hàng.</p>
+                        <div class="pricing">
+                            <div class="price-info">
+                                <span class="prefix">Chỉ từ</span>
+                                <del>60.000đ</del>
+                                <span class="price-now text-yellow">30.000đ/Năm</span>
+                            </div>
+                            <div class="discount">-50%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- YouTube Premium -->
+            <div class="product-card" style="cursor: pointer;" data-id="youtube-premium" data-plans='[{"name":"1 Tháng","price":30000,"original":60000},{"name":"6 Tháng","price":150000,"original":360000},{"name":"1 Năm","price":280000,"original":720000}]' data-features='["Xem video không quảng cáo","Phát nhạc dưới nền (YouTube Music)","Tải video xem offline","Tài khoản chính chủ email của bạn","Bảo hành suốt thời gian sử dụng"]' onclick="openProductModal(this)">
+                <div class="card-inner">
+                    <div class="card-header bg-youtube">
+                        <div class="badge-top-right">1 GÓI</div>
+                        <div class="header-content">
+                            <div class="engine-badge">NO ADS</div>
+                            <div class="app-icon red-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2Z" fill="white"/>
+                                    <path d="M10 8L16 12L10 16V8Z" fill="#DC2626"/>
+                                </svg>
+                            </div>
+                            <h3>YouTube</h3>
+                            <p class="app-subtitle">PREMIUM STAGE</p>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h4>YouTube Premium</h4>
+                        <p class="description">Không quảng cáo, phát nền, trải nghiệm xem video và nghe nhạc mượt hơn.</p>
+                        <div class="pricing">
+                            <div class="price-info">
+                                <span class="prefix">Chỉ từ</span>
+                                <del>60.000đ</del>
+                                <span class="price-now text-yellow">30.000đ/1 Tháng</span>
+                            </div>
+                            <div class="discount">-50%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Floating Contact Button (for mobile if needed) -->
+    <div class="floating-contact">
+        <button id="openContactModalMobile" class="nav-contact-btn floating-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 11.5C21 16.75 16.52 21 12 21C10.63 21 9.35 20.67 8.24 20.12C8.03 20.02 7.77 20 7.55 20.06L4.72 20.84C4.31 20.95 3.92 20.6 4.02 20.2L4.71 17.37C4.78 17.1 4.76 16.82 4.63 16.56C4.22 15.7 4 14.74 4 13.72C4 8.47 8.48 4.22 13 4.22C17.52 4.22 21 8.47 21 11.5Z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            LIÊN HỆ
+        </button>
+    </div>
+
+    <!-- Contact Modal -->
+    <div id="contactModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-inner">
+                <button class="close-modal" id="closeContactModal" style="color: var(--text-secondary);">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="modal-header">
+                    <span class="modal-subtitle">GEMISOCIAL SUPPORT</span>
+                    <h2 class="modal-title">KÊNH LIÊN HỆ CHÍNH THỨC</h2>
+                </div>
+                <div class="contact-list">
+                    <a href="#" class="contact-item">
+                        <div class="contact-icon zalo-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 13.5997 2.37562 15.1116 3.04346 16.4525C3.22094 16.8088 3.28001 17.2161 3.17712 17.6006L2.58151 19.8267C2.32295 20.7928 3.2072 21.6771 4.17335 21.4185L6.39939 20.8229C6.78393 20.72 7.19121 20.7791 7.54753 20.9565C8.88837 21.6244 10.4003 22 12 22Z" stroke="#0068FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M8 12H16" stroke="#0068FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="contact-info">
+                            <h3>Zalo Support</h3>
+                            <p>Nhắn tin tư vấn 24/7</p>
+                        </div>
+                    </a>
+                    <a href="#" class="contact-item">
+                        <div class="contact-icon zalo-group-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17 21V19C17 17.8954 16.1046 17 15 17H9C7.89543 17 7 17.8954 7 19V21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="#0068FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M21 21V19C21 17.8954 20.1046 17 19 17H18M18 11C19.6569 11 21 9.65685 21 8C21 6.34315 19.6569 5 18 5" stroke="#0068FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M3 21V19C3 17.8954 3.89543 17 5 17H6M6 11C4.34315 11 3 9.65685 3 8C3 6.34315 4.34315 5 6 5" stroke="#0068FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="contact-info">
+                            <h3>Cộng đồng Zalo</h3>
+                            <p>Cập nhật thông tin mới nhất</p>
+                        </div>
+                    </a>
+                    <a href="#" class="contact-item">
+                        <div class="contact-icon tiktok-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 12C9 13.6569 10.3431 15 12 15C13.6569 15 15 13.6569 15 12V2C15 2 15 3.5 18 3.5M12 8C10.3431 8 9 9.34315 9 11M9 12V18C9 19.6569 10.3431 21 12 21C13.6569 21 15 19.6569 15 18V16" stroke="#00F2FE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="contact-info">
+                            <h3>TikTok Shop</h3>
+                            <p>Video deal hot và feedback thật</p>
+                        </div>
+                    </a>
+                    <a href="#" class="contact-item">
+                        <div class="contact-icon fb-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M18 2H15C13.6739 2 12.4021 2.52678 11.4645 3.46447C10.5268 4.40215 10 5.67392 10 7V10H7V14H10V22H14V14H17L18 10H14V7C14 6.73478 14.1054 6.48043 14.2929 6.29289C14.4804 6.10536 14.7348 6 15 6H18V2Z" stroke="#1877F2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="contact-info">
+                            <h3>Facebook Page</h3>
+                            <p>Inbox nhanh, cập nhật khuyến mãi</p>
+                        </div>
+                    </a>
+                    <a href="#" class="contact-item">
+                        <div class="contact-icon ig-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M16 11.37C16.1234 12.2023 15.9813 13.0522 15.5938 13.7991C15.2063 14.5459 14.5932 15.1514 13.8416 15.5297C13.0901 15.908 12.2385 16.0396 11.4078 15.9059C10.5771 15.7723 9.80977 15.3801 9.21484 14.7852C8.61991 14.1902 8.22773 13.4229 8.09406 12.5922C7.9604 11.7615 8.09202 10.91 8.47032 10.1584C8.84863 9.40685 9.45411 8.79374 10.2009 8.40624C10.9478 8.01874 11.7977 7.87659 12.63 8.00004C13.4789 8.12588 14.2649 8.52146 14.8717 9.12831C15.4785 9.73516 15.8741 10.5211 16 11.37Z" stroke="#E1306C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M17.5 6.5H17.51" stroke="#E1306C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M18 2H6C3.79086 2 2 3.79086 2 6V18C2 20.2091 3.79086 22 6 22H18C20.2091 22 22 20.2091 22 18V6C22 3.79086 20.2091 2 18 2Z" stroke="#E1306C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="contact-info">
+                            <h3>Instagram</h3>
+                            <p>Story deal, hình ảnh sản phẩm mới</p>
+                        </div>
+                    </a>
+                    <a href="#" class="contact-item">
+                        <div class="contact-icon ms-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2C6.47715 2 2 6.14213 2 11.25C2 14.1205 3.44781 16.6853 5.6791 18.2831C5.81932 18.3837 5.92211 18.5284 5.9723 18.6961L6.68945 21.0924C6.8378 21.5878 7.42415 21.8217 7.89279 21.5721L10.3708 20.2523C10.5054 20.1806 10.6586 20.1462 10.8136 20.153C11.1999 20.1699 11.5959 20.1786 12 20.1786C17.5228 20.1786 22 16.1804 22 11.0714C22 5.96243 17.5228 2 12 2Z" stroke="#0084FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M8 12L10.5 9L14 12L17.5 9" stroke="#0084FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="contact-info">
+                            <h3>Messenger</h3>
+                            <p>Hỗ trợ đơn hàng và bảo hành</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Details Modal -->
+    <div id="productModal" class="modal-overlay">
+        <div class="modal-content product-modal-content">
+            <div class="modal-inner">
+                <button class="close-modal" id="closeProductModal" style="color: var(--text-secondary);">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 6L6 18M6 6L18 18"/>
+                    </svg>
+                </button>
+                <div class="product-modal-body">
+                    <div class="pm-header">
+                        <div class="pm-icon" id="pmIcon"></div>
+                        <div class="pm-title-area">
+                            <h2 id="pmTitle">Product Title</h2>
+                            <p id="pmSubtitle" class="app-subtitle">Subtitle</p>
+                        </div>
+                    </div>
+                    <div class="pm-features" id="pmFeatures">
+                        <!-- Features will be injected here -->
+                    </div>
+                    <div class="pm-plans">
+                        <h3>Chọn Gói:</h3>
+                        <div class="plans-container" id="pmPlans">
+                            <!-- Plans will be injected here -->
+                        </div>
+                    </div>
+                    <div class="pm-actions">
+                        <button class="btn-add-cart" id="btnAddToCart">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M9 20a1 1 0 1 0 0 2 1 1 0 1 0 0-2zM20 20a1 1 0 1 0 0 2 1 1 0 1 0 0-2zM1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                            </svg>
+                            Thêm Vào Giỏ Hàng
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div id="cartSidebar" class="cart-sidebar-overlay">
+        <div class="cart-sidebar-content">
+            <div class="cart-sidebar-header">
+                <div>
+                    <span class="modal-subtitle">GEMISOCIAL CART</span>
+                    <h2 class="modal-title">Giỏ hàng</h2>
+                </div>
+                <button class="close-modal" id="closeCartSidebar" style="color: var(--text-secondary); position: relative; top: 0; right: 0; background: rgba(255,255,255,0.05);">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 6L6 18M6 6L18 18"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="cart-items" id="cartItemsContainer">
+                <!-- Cart items will be injected here -->
+            </div>
+            <div class="cart-sidebar-footer">
+                <div class="cart-summary-row">
+                    <span class="summary-label">Tạm tính</span>
+                    <span id="cartSubtotal" class="summary-value">0đ</span>
+                </div>
+                <div class="cart-summary-row">
+                    <span class="summary-label">Giảm giá</span>
+                    <span id="cartDiscount" class="summary-value">-0đ</span>
+                </div>
+                <div class="cart-summary-row total-row">
+                    <span class="summary-label">Tổng cộng</span>
+                    <span id="cartTotalPrice" class="price-now text-yellow">0đ</span>
+                </div>
+                <button class="btn-checkout" id="btnGoToCheckout">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                    Thanh toán
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkoutModal" class="modal-overlay">
+        <div class="modal-content checkout-modal-content">
+            <div class="modal-inner">
+                <button class="close-modal" id="closeCheckoutModal" style="color: var(--text-secondary);">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 6L6 18M6 6L18 18"/>
+                    </svg>
+                </button>
+                <div class="modal-header">
+                    <span class="modal-subtitle">SECURE CHECKOUT</span>
+                    <h2 class="modal-title">THANH TOÁN</h2>
+                </div>
+                <div class="checkout-body">
+                    <div class="checkout-form" id="checkoutForm">
+                        <div class="form-group">
+                            <label>Họ và Tên</label>
+                            <input type="text" id="checkoutName" placeholder="Nhập họ tên của bạn" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email (Nhận tài khoản)</label>
+                            <input type="email" id="checkoutEmail" placeholder="Nhập email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Số điện thoại Zalo</label>
+                            <input type="text" id="checkoutPhone" placeholder="Nhập số điện thoại" required>
+                        </div>
+                        <button class="btn-pay" id="btnShowQR">Xác Nhận Đơn Hàng</button>
+                    </div>
+                    
+                    <div class="checkout-qr" id="checkoutQR" style="display: none;">
+                        <p class="qr-instruction">Vui lòng quét mã QR bên dưới hoặc chuyển khoản theo thông tin để hoàn tất thanh toán.</p>
+                        <div class="qr-box">
+                            <!-- Fake QR Image placeholder -->
+                            <div class="qr-placeholder">
+                                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                    <rect x="7" y="7" width="3" height="3"/>
+                                    <rect x="14" y="7" width="3" height="3"/>
+                                    <rect x="7" y="14" width="3" height="3"/>
+                                    <rect x="14" y="14" width="3" height="3"/>
+                                </svg>
+                                <span>MÃ QR CHUYỂN KHOẢN</span>
+                            </div>
+                        </div>
+                        <div class="bank-info">
+                            <p>Ngân hàng: <strong>MB BANK</strong></p>
+                            <p>STK: <strong class="text-yellow">0123456789</strong></p>
+                            <p>Chủ TK: <strong>GEMISOCIAL AI</strong></p>
+                            <p>Số tiền: <strong id="checkoutFinalPrice" class="text-yellow">0đ</strong></p>
+                            <p>Nội dung: <strong id="checkoutMemo">Thanh toan don hang</strong></p>
+                        </div>
+                        <button class="btn-done" id="btnDoneOrder">Tôi Đã Chuyển Khoản</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Chatbot Widget -->
+    <div class="chatbot-container" id="chatbotContainer">
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <div class="chat-header-info">
+                    <div class="chat-avatar">AI</div>
+                    <div>
+                        <h4>Gemi Bot</h4>
+                        <p class="status">Online</p>
+                    </div>
+                </div>
+                <button class="close-chat" id="closeChatBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 6L6 18M6 6L18 18"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="chat-body" id="chatBody">
+                <div class="chat-message bot-msg">
+                    <p>Chào bạn! Mình là trợ lý AI của Gemisocial. Mình có thể giúp gì cho bạn hôm nay?</p>
+                </div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chatInput" placeholder="Nhập tin nhắn...">
+                <button id="sendChatBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="22" y1="2" x2="11" y2="13"/>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <button class="chat-trigger" id="chatTriggerBtn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Login / Register Modal -->
+    <div id="authModal" class="modal-overlay">
+        <div class="modal-content" style="max-width:420px;">
+            <div class="modal-inner">
+                <button class="close-modal" id="closeAuthModal" style="color:var(--text-secondary);">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6L18 18"/></svg>
+                </button>
+
+                <!-- Tab switcher -->
+                <div class="auth-tabs">
+                    <button class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">Đăng nhập</button>
+                    <button class="auth-tab" id="tabRegister" onclick="switchAuthTab('register')">Đăng ký</button>
+                </div>
+
+                <!-- Login Form -->
+                <div id="loginForm">
+                    <div class="form-group" style="margin-top:1.25rem;">
+                        <label>Tên đăng nhập</label>
+                        <input type="text" id="fLoginUser" placeholder="username" autocomplete="username">
+                    </div>
+                    <div class="form-group" style="margin-top:1rem;">
+                        <label>Mật khẩu</label>
+                        <input type="password" id="fLoginPass" placeholder="Tối thiểu 8 ký tự" minlength="8" autocomplete="current-password">
+                    </div>
+                    <p id="loginErrMsg" style="color:#ef4444;font-size:.85rem;margin-top:.75rem;display:none;"></p>
+                    <button id="btnDoLogin" class="btn-checkout" style="margin-top:1.5rem;">Đăng nhập</button>
+                </div>
+
+                <!-- Register Form -->
+                <div id="registerForm" style="display:none;">
+                    <div class="form-group" style="margin-top:1.25rem;">
+                        <label>Họ và tên</label>
+                        <input type="text" id="fRegName" placeholder="Nguyễn Văn A">
+                    </div>
+                    <div class="form-group" style="margin-top:1rem;">
+                        <label>Tên đăng nhập</label>
+                        <input type="text" id="fRegUser" placeholder="username">
+                    </div>
+                    <div class="form-group" style="margin-top:1rem;">
+                        <label>Mật khẩu</label>
+                        <input type="password" id="fRegPass" placeholder="Tối thiểu 8 ký tự" minlength="8" autocomplete="new-password">
+                    </div>
+                    <div class="form-group" style="margin-top:1rem;">
+                        <label>Email (tùy chọn)</label>
+                        <input type="email" id="fRegEmail" placeholder="email@gmail.com">
+                    </div>
+                    <p id="registerErrMsg" style="color:#ef4444;font-size:.85rem;margin-top:.75rem;display:none;"></p>
+                    <button id="btnDoRegister" class="btn-checkout" style="margin-top:1.5rem;">Tạo tài khoản</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="successNotice" class="success-notice-overlay" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="successNoticeTitle">
+        <div class="success-notice-card">
+            <div class="success-check-wrap">
+                <svg class="notice-icon notice-icon-success" viewBox="0 0 72 72" aria-hidden="true">
+                    <circle class="success-check-circle" cx="36" cy="36" r="28"></circle>
+                    <path class="success-check-mark" d="M23 37.5 32.5 47 50 27"></path>
+                </svg>
+                <svg class="notice-icon notice-icon-error" viewBox="0 0 72 72" aria-hidden="true">
+                    <circle class="notice-error-circle" cx="36" cy="36" r="28"></circle>
+                    <path class="notice-error-x" d="M26 26 46 46M46 26 26 46"></path>
+                </svg>
+                <svg class="notice-icon notice-icon-warning" viewBox="0 0 72 72" aria-hidden="true">
+                    <path class="notice-warning-triangle" d="M36 10 66 61H6L36 10Z"></path>
+                    <path class="notice-warning-line" d="M36 28V43"></path>
+                    <circle class="notice-warning-dot" cx="36" cy="52" r="2.8"></circle>
+                </svg>
+            </div>
+            <span class="success-notice-kicker">DONE</span>
+            <h3 id="successNoticeTitle">Thành công</h3>
+            <p id="successNoticeMessage">Thao tác đã hoàn tất.</p>
+            <div class="success-notice-actions">
+                <button id="successNoticeCancel" class="success-notice-cancel" type="button">Hủy</button>
+                <button id="successNoticeOk" class="success-notice-ok" type="button">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js?v=notice-ui-chatbot-fix-20260502"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+node_modules
+backend/node_modules
+npm-debug.log*
+.git
+.gitignore
+.dockerignore
+.claude
+backup/memories.md
+Question_Data.xlsx
+data/Question_Data.xlsx
+data/data_order.json
+data/data_user.json
+*.log
+.env
+.env.*

@@ -1,0 +1,22 @@
+{
+  "name": "webbana.i",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "snapshot": "node ../backup/snapshot.js",
+    "check": "node --check server.js && node --check ../frontend/js/script.js && node --check ../frontend/js/admin.js && node --check ../backup/snapshot.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "xlsx": "^0.18.5"
+  }
+}

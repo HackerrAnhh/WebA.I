@@ -1,0 +1,20 @@
+services:
+  webbanai:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: webbanai
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+      HOST: 0.0.0.0
+      PORT: 3000
+      FRONTEND_DIR: /app/frontend
+      DATA_DIR: /app/data
+      JWT_SECRET: change-me-local-dev-secret
+      ADMIN_USERNAME: admin
+      ADMIN_PASSWORD: 11111111
+    volumes:
+      - ../data:/app/data
+    restart: unless-stopped

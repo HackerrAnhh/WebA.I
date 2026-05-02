@@ -1,0 +1,256 @@
+TEST API THIET YEU - WebBanA.I
+Base URL: http://localhost:3000
+
+Chay server:
+npm start
+
+Header chung khi gui body JSON:
+Content-Type: application/json
+
+API nao can xac thuc thi them header:
+Authorization: Bearer <token>
+
+Lay token bang API dang nhap. Login user thi lay user_token. Login admin thi lay admin_token.
+
+Tai khoan test co san:
+Admin: admin / 11111111
+User: user1 / 11111111
+
+============================================================
+1. DANG NHAP - lay token
+============================================================
+
+POST http://localhost:3000/api/auth/login
+Khong can Authorization
+
+Body admin:
+{
+  "username": "admin",
+  "password": "11111111"
+}
+
+Body user:
+{
+  "username": "user1",
+  "password": "11111111"
+}
+
+Ket qua tra ve co token:
+{
+  "token": "...",
+  "user": {}
+}
+
+============================================================
+2. XEM SAN PHAM
+============================================================
+
+GET http://localhost:3000/api/products
+Khong can Authorization
+
+Tim kiem:
+GET http://localhost:3000/api/products?q=chatgpt
+Khong can Authorization
+
+============================================================
+3. KIEM TRA TOKEN DANG NHAP
+============================================================
+
+GET http://localhost:3000/api/auth/me
+Can Authorization user hoac admin:
+Authorization: Bearer <token>
+
+============================================================
+4. TAO DON HANG
+============================================================
+
+POST http://localhost:3000/api/orders
+Can Authorization user:
+Authorization: Bearer <user_token>
+
+Body:
+{
+  "name": "Nguyen Van A",
+  "phone": "0901234567",
+  "email": "test@gmail.com",
+  "paymentMethod": "bank_transfer",
+  "memo": "Thanh toan 0901234567",
+  "items": [
+    {
+      "productId": "chatgpt-plus",
+      "planName": "1 Tháng",
+      "quantity": 1
+    }
+  ]
+}
+
+Luu y:
+- productId va planName lay tu GET http://localhost:3000/api/products
+- API nay se tru stock san pham.
+- Ket qua tra ve co id don hang, vi du ORD1777637753617.
+
+============================================================
+5. ADMIN XEM DON HANG
+============================================================
+
+GET http://localhost:3000/api/orders
+Can Authorization admin:
+Authorization: Bearer <admin_token>
+
+============================================================
+6. ADMIN CAP NHAT TRANG THAI DON
+============================================================
+
+PATCH http://localhost:3000/api/orders/ORD1777637753617
+Can Authorization admin:
+Authorization: Bearer <admin_token>
+
+Body xac nhan hoan thanh:
+{
+  "status": "complete",
+  "paymentStatus": "confirmed"
+}
+
+Body huy don:
+{
+  "status": "cancelled",
+  "paymentStatus": "cancelled"
+}
+
+Thay ORD1777637753617 bang id don hang that.
+
+============================================================
+7. ADMIN XEM THONG KE
+============================================================
+
+GET http://localhost:3000/api/dashboard-stats
+Can Authorization admin:
+Authorization: Bearer <admin_token>
+
+============================================================
+8. MA GIAM GIA
+============================================================
+
+Xem danh sach ma:
+GET http://localhost:3000/api/promotions
+Khong can Authorization
+
+Kiem tra ma:
+POST http://localhost:3000/api/promotion-validations
+Khong can Authorization
+
+Body:
+{
+  "code": "SALE10"
+}
+
+============================================================
+9. CHAT BOT
+============================================================
+
+POST http://localhost:3000/api/chat-messages
+Khong can Authorization
+
+Body:
+{
+  "message": "ChatGPT Plus giá bao nhiêu?",
+  "cart": []
+}
+
+============================================================
+10. ADMIN TRAIN AI BANG FILE
+============================================================
+
+POST http://localhost:3000/api/ai-knowledge
+Can Authorization admin:
+Authorization: Bearer <admin_token>
+
+Body:
+{
+  "fileName": "faq.txt",
+  "mimeType": "text/plain",
+  "mode": "append",
+  "contentBase64": "RkFRCnNob3AgY28gdXkgdGluIGtob25nPwpTaG9wIGNhbSBrZXQgdXkgdGluLg=="
+}
+
+Ghi chu:
+- mode = append de them knowledge.
+- mode = replace de xoa knowledge cu va thay bang file moi.
+- Ho tro JSON, TXT, SQL, CSV, DOCX, XLSX va cac file text pho bien.
+- Neu gui JSON truc tiep van duoc:
+{
+  "fileName": "faq.json",
+  "mode": "append",
+  "data": {
+    "conversation": {
+      "customer_query": "Shop co uy tin khong?",
+      "shop_response": "Shop cam ket uy tin va ho tro hau mai."
+    }
+  }
+}
+
+============================================================
+11. ADMIN QUAN LY SAN PHAM - neu can test
+============================================================
+
+Them san pham:
+POST http://localhost:3000/api/products
+Can Authorization admin:
+Authorization: Bearer <admin_token>
+
+Body:
+{
+  "id": "test-product",
+  "name": "Test Product",
+  "title": "Test",
+  "subtitle": "POSTMAN TEST",
+  "engineBadge": "TEST",
+  "iconClass": "bg-chatgpt",
+  "appIconHtml": "<h2>T</h2>",
+  "description": "San pham test",
+  "pricePrefix": "Chi tu",
+  "stock": 10,
+  "plans": [
+    {
+      "name": "1 Tháng",
+      "price": 10000,
+      "original": 20000
+    }
+  ],
+  "features": [
+    "Feature test"
+  ]
+}
+
+Sua san pham:
+PATCH http://localhost:3000/api/products/test-product
+Can Authorization admin:
+Authorization: Bearer <admin_token>
+
+Body:
+{
+  "name": "Test Product Updated",
+  "stock": 5
+}
+
+Xoa san pham:
+DELETE http://localhost:3000/api/products/test-product
+Can Authorization admin:
+Authorization: Bearer <admin_token>
+
+============================================================
+GHI CHU VE CHUAN RESTFUL
+============================================================
+
+Endpoint moi da dung dang resource:
+- /api/auth/login, /api/auth/register, /api/auth/me
+- /api/products
+- /api/orders
+- /api/dashboard-stats
+- /api/promotion-validations
+- /api/chat-messages
+- /api/ai-config
+- /api/ai-knowledge
+
+Cap nhat mot phan dung PATCH, khong dung PUT.
+Mot so endpoint cu van duoc server ho tro tam thoi de khong lam vo code/Postman cu.

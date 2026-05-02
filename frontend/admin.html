@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemisocial Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=modal-click-guard-20260502">
+    <link rel="stylesheet" href="css/admin.css?v=custom-notice-v2-20260502">
+</head>
+<body data-theme="dark">
+
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-screen">
+        <div class="login-box modal-inner">
+            <h2 class="modal-title" style="text-align: center; margin-bottom: 2rem;">Admin Login</h2>
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" id="loginUser" placeholder="admin">
+            </div>
+            <div class="form-group" style="margin-top: 1rem;">
+                <label>Password</label>
+                <input type="password" id="loginPass" placeholder="Tối thiểu 8 ký tự" minlength="8" autocomplete="current-password">
+            </div>
+            <button id="btnLogin" class="btn-checkout" style="margin-top: 2rem;">Đăng nhập</button>
+            <p id="loginError" style="color: #ef4444; text-align: center; margin-top: 1rem; display: none;"></p>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboardScreen" class="dashboard-container" style="display: none;">
+        
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="logo" style="margin-bottom: 2rem;">
+                <span class="logo-main" style="font-size: 1.2rem;">GEMISOCIAL</span>
+                <span class="logo-sub" style="font-size: 0.8rem;">ADMIN</span>
+            </div>
+            
+            <nav class="admin-nav">
+                <a href="#" class="nav-item active" data-tab="dashboard">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                    Tổng quan
+                </a>
+                <a href="#" class="nav-item" data-tab="products">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                    Sản phẩm
+                </a>
+                <a href="#" class="nav-item" data-tab="orders">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    Đơn hàng
+                </a>
+                <a href="#" class="nav-item" data-tab="payments">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+                    Thanh toán
+                </a>
+                <a href="#" class="nav-item" data-tab="promotions">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                    Khuyến mãi
+                </a>
+                <a href="#" class="nav-item" data-tab="users">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    Users/Admin
+                </a>
+                <a href="#" class="nav-item" data-tab="ai_config">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    Cấu hình AI
+                </a>
+            </nav>
+            
+            <button id="btnLogout" class="nav-item btn-logout" style="margin-top: auto; color: #ef4444;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                Đăng xuất
+            </button>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Topbar -->
+            <header class="admin-header">
+                <h2>Dashboard</h2>
+                <div class="user-info">
+                    <span id="adminName">Admin</span>
+                </div>
+            </header>
+
+            <!-- Tabs Content -->
+            <div class="tab-content" id="tab-dashboard" style="display: block;">
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <h3>Tổng Doanh Thu</h3>
+                        <p id="statRevenue" class="price-now text-yellow">0đ</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Đơn Hàng</h3>
+                        <p id="statOrders">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Tồn Kho</h3>
+                        <p id="statStock">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Người Dùng</h3>
+                        <p id="statUsers">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Chờ Xử Lý</h3>
+                        <p id="statPending">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Hoàn Thành</h3>
+                        <p id="statComplete">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Tiền Chờ Xác Nhận</h3>
+                        <p id="statPendingRevenue" class="price-now text-yellow">0đ</p>
+                    </div>
+                </div>
+                <!-- High-Tech Charts Area -->
+                <div class="dashboard-panels" style="grid-template-columns: 2fr 1fr; margin-top: 2rem;">
+                    <div class="table-container mini-panel">
+                        <h3>Biểu đồ doanh thu 7 ngày gần nhất</h3>
+                        <div style="height: 250px; margin-top: 1rem; position: relative;">
+                            <canvas id="revenueChartCanvas"></canvas>
+                        </div>
+                    </div>
+                    <div class="table-container mini-panel">
+                        <h3>Tỷ trọng Bán chạy</h3>
+                        <div style="height: 250px; margin-top: 1rem; position: relative; display: flex; justify-content: center;">
+                            <canvas id="productChartCanvas"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-panels">
+                    <div class="table-container mini-panel">
+                        <h3>Sắp hết hàng</h3>
+                        <div id="dashboardLowStock"></div>
+                    </div>
+                    <div class="table-container mini-panel">
+                        <h3>Sản phẩm bán chạy</h3>
+                        <div id="dashboardTopProducts"></div>
+                    </div>
+                    <div class="table-container mini-panel">
+                        <h3>Đơn mới nhất</h3>
+                        <div id="dashboardRecentOrders"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tab-products" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <h3>Quản lý Sản Phẩm</h3>
+                    <button class="btn-checkout" style="width: auto; padding: 0.5rem 1rem;" onclick="openProductForm()">+ Thêm Sản Phẩm</button>
+                </div>
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Ảnh</th>
+                                <th>Tên SP</th>
+                                <th>Gói / Giá</th>
+                                <th>Tồn kho</th>
+                                <th>Badge</th>
+                                <th>Visual</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productTableBody">
+                            <!-- Products injected here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tab-orders" style="display: none;">
+                <h3>Quản lý Đơn Hàng</h3>
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Mã Đơn</th>
+                                <th>Khách Hàng</th>
+                                <th>SĐT / Email</th>
+                                <th>Sản phẩm</th>
+                                <th>Tổng Tiền</th>
+                                <th>Trạng Thái</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orderTableBody">
+                            <!-- Orders injected here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="tab-payments" style="display: none;">
+                <h3>Lịch Sử Thanh Toán</h3>
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Mã Đơn</th>
+                                <th>Khách Hàng</th>
+                                <th>Thời Gian</th>
+                                <th>Tiền</th>
+                                <th>Nội dung</th>
+                                <th>Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody id="paymentTableBody">
+                            <!-- Payments injected here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="tab-promotions" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <h3>Mã Khuyến Mãi</h3>
+                    <button class="btn-checkout" style="width: auto; padding: 0.5rem 1rem;" onclick="openPromoForm()">+ Tạo Mã Mới</button>
+                </div>
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Giảm giá</th>
+                                <th>Trạng thái</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="promoTableBody">
+                            <!-- Promos injected here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="tab-users" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <h3>Quản Lý Users/Admin</h3>
+                    <button class="btn-checkout" style="width: auto; padding: 0.5rem 1rem;" onclick="openUserForm()">+ Thêm Thành Viên</button>
+                </div>
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Tên</th>
+                                <th>Username</th>
+                                <th>Mật khẩu</th>
+                                <th>Email</th>
+                                <th>Quyền</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="userTableBody">
+                            <!-- Users injected here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tab-ai_config" style="display: none;">
+                <h3>Cấu hình Hệ thống AI</h3>
+                <div class="form-group" style="margin-top: 1.5rem;">
+                    <label>System Prompt (Định hướng cho Gemi Bot)</label>
+                    <textarea id="aiSystemPrompt" rows="8" style="width: 100%; background: var(--bg-card); color: var(--text-primary); border: 1px solid var(--border-color); padding: 1rem; border-radius: 8px; font-family: var(--font-main); font-size: 0.85rem; line-height: 1.5;"></textarea>
+                </div>
+                <button id="btnSaveAiConfig" class="btn-checkout" style="width: auto; margin-top: 1rem; padding: 0.5rem 1.5rem;">Lưu Cấu Hình</button>
+                
+                <hr style="border-color: var(--border-color); margin: 2rem 0;">
+                
+                <h4>Huấn luyện AI từ dữ liệu khách hàng</h4>
+                <p style="color: var(--text-secondary); margin-bottom: 1rem; font-size: 0.9rem;">Upload file văn bản/tài liệu để bot offline học thêm FAQ, chính sách, sản phẩm, feedback hoặc dữ liệu nội bộ khác. Hỗ trợ JSON, TXT, SQL, CSV, DOCX, XLSX và các file text phổ biến.</p>
+                <div class="ai-train-controls">
+                    <div class="ai-upload-shell" id="aiUploadDropzone">
+                        <input type="file" id="aiDataUpload" class="ai-upload-input" accept=".json,.txt,.md,.csv,.tsv,.sql,.doc,.docx,.xls,.xlsx,.xlsm,.xml,.html,.css,.js,.ts,.log,.yaml,.yml,.pdf,text/*,application/json,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+                        <label for="aiDataUpload" class="ai-upload-picker btn-checkout">
+                            <span class="ai-upload-icon">+</span>
+                            <span>Thêm vào Knowledge</span>
+                        </label>
+                        <div class="ai-upload-meta">
+                            <strong id="aiUploadFileName">Chưa chọn tệp</strong>
+                            <span id="aiUploadFileInfo">Bấm chọn hoặc kéo-thả file vào đây</span>
+                        </div>
+                    </div>
+                    <div class="ai-train-actions">
+                        <select id="aiTrainMode" class="admin-select ai-train-mode-select" aria-label="Chế độ cập nhật knowledge">
+                            <option value="append">Thêm vào knowledge</option>
+                            <option value="replace">Thay toàn bộ knowledge</option>
+                        </select>
+                        <button id="btnUploadAiData" class="btn-checkout">Upload & Train</button>
+                        <button id="btnClearAiData" class="btn-sm btn-danger">Xóa knowledge</button>
+                    </div>
+                </div>
+                <p id="aiKnowledgeStatus" style="color: var(--text-secondary); margin-top: 1rem; font-size: 0.9rem;">Đang tải knowledge...</p>
+                <div id="aiKnowledgeList" class="table-container mini-panel" style="margin-top: 1rem;"></div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Modals for Forms (Hidden by default) -->
+    <div id="adminModal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 720px;">
+            <div class="modal-inner">
+                <button class="close-modal" id="closeAdminModal" style="color: var(--text-secondary);">&times;</button>
+                <h2 id="modalTitle" class="modal-title">Form</h2>
+                <div id="modalBody" class="modal-body" style="max-height: 70vh; overflow-y: auto; padding-right: 10px;">
+                    <!-- Form content injected here -->
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-cancel" onclick="document.getElementById('adminModal').classList.remove('active')">Hủy</button>
+                    <button id="btnSaveForm" class="btn-checkout">Lưu Thay Đổi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="successNotice" class="success-notice-overlay" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="successNoticeTitle">
+        <div class="success-notice-card">
+            <div class="success-check-wrap">
+                <svg class="notice-icon notice-icon-success" viewBox="0 0 72 72" aria-hidden="true">
+                    <circle class="success-check-circle" cx="36" cy="36" r="28"></circle>
+                    <path class="success-check-mark" d="M23 37.5 32.5 47 50 27"></path>
+                </svg>
+                <svg class="notice-icon notice-icon-error" viewBox="0 0 72 72" aria-hidden="true">
+                    <circle class="notice-error-circle" cx="36" cy="36" r="28"></circle>
+                    <path class="notice-error-x" d="M26 26 46 46M46 26 26 46"></path>
+                </svg>
+                <svg class="notice-icon notice-icon-warning" viewBox="0 0 72 72" aria-hidden="true">
+                    <path class="notice-warning-triangle" d="M36 10 66 61H6L36 10Z"></path>
+                    <path class="notice-warning-line" d="M36 28V43"></path>
+                    <circle class="notice-warning-dot" cx="36" cy="52" r="2.8"></circle>
+                </svg>
+            </div>
+            <span class="success-notice-kicker">DONE</span>
+            <h3 id="successNoticeTitle">Thành công</h3>
+            <p id="successNoticeMessage">Thao tác đã hoàn tất.</p>
+            <div class="success-notice-actions">
+                <button id="successNoticeCancel" class="success-notice-cancel" type="button">Hủy</button>
+                <button id="successNoticeOk" class="success-notice-ok" type="button">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/admin.js?v=custom-notice-v2-20260502"></script>
+</body>
+</html>

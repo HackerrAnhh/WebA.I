@@ -1,0 +1,187 @@
+[
+  {
+    "id": "chatgpt-plus",
+    "name": "ChatGPT Plus",
+    "title": "ChatGPT",
+    "subtitle": "AI WORKSTATION",
+    "badgeTopRight": "3 GÓI",
+    "engineBadge": "PLUS VIP",
+    "iconClass": "bg-chatgpt",
+    "productTheme": "theme-001",
+    "imageAnimation": "float",
+    "appIconHtml": "<svg width=\"32\" height=\"32\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2Z\" fill=\"white\"/><path d=\"M8 11H9V13H8V11ZM15 11H16V13H15V11ZM11 15H13V16H11V15Z\" fill=\"#10A37F\"/></svg>",
+    "image": "assets/chatgpt-plus.png",
+    "description": "Truy cập GPT-4o không giới hạn, phù hợp học tập, làm việc và sáng tạo nội dung hằng ngày.",
+    "pricePrefix": "Chỉ từ",
+    "stock": 99,
+    "plans": [
+      {
+        "name": "1 Tháng",
+        "price": 130000,
+        "original": 260000
+      },
+      {
+        "name": "3 Tháng",
+        "price": 350000,
+        "original": 780000
+      },
+      {
+        "name": "6 Tháng",
+        "price": 650000,
+        "original": 1560000
+      },
+      {
+        "name": "1 Năm",
+        "price": 1250000,
+        "original": 3120000
+      }
+    ],
+    "features": [
+      "Truy cập GPT-4o mọi lúc, không bị giới hạn",
+      "Hỗ trợ phân tích dữ liệu, vẽ biểu đồ",
+      "Tạo hình ảnh với DALL-E 3 sắc nét",
+      "Phản hồi siêu tốc độ kể cả giờ cao điểm",
+      "Bảo hành 1 đổi 1 nhanh chóng"
+    ]
+  },
+  {
+    "id": "chatgpt-business",
+    "name": "ChatGPT Business",
+    "title": "ChatGPT",
+    "subtitle": "TEAM POWER",
+    "badgeTopRight": "1 GÓI",
+    "engineBadge": "BUSINESS SUITE",
+    "iconClass": "bg-chatgpt-business",
+    "productTheme": "theme-014",
+    "imageAnimation": "shimmer",
+    "appIconHtml": "<svg width=\"32\" height=\"32\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2Z\" fill=\"white\"/><path d=\"M8 11H9V13H8V11ZM15 11H16V13H15V11ZM11 15H13V16H11V15Z\" fill=\"#2563EB\"/></svg>",
+    "image": "assets/chatgpt-business.png",
+    "description": "Giới hạn x3 Plus, ổn định cao, phù hợp team nhỏ và người dùng cần hiệu suất tốt hơn Plus.",
+    "pricePrefix": "Chỉ từ",
+    "stock": 1,
+    "plans": [
+      {
+        "name": "1 Tháng",
+        "price": 100000,
+        "original": 200000
+      },
+      {
+        "name": "3 Tháng",
+        "price": 280000,
+        "original": 600000
+      },
+      {
+        "name": "6 Tháng",
+        "price": 500000,
+        "original": 1200000
+      }
+    ],
+    "features": [
+      "Bao gồm tất cả tính năng của ChatGPT Plus",
+      "Giới hạn tin nhắn gấp 3 lần bản Plus",
+      "Độ ổn định cực cao, ít bị lỗi mạng",
+      "Workspace riêng biệt bảo mật dữ liệu",
+      "Hỗ trợ ưu tiên 24/7"
+    ]
+  },
+  {
+    "id": "chatgpt-pro",
+    "name": "ChatGPT Pro",
+    "title": "ChatGPT",
+    "subtitle": "DEEP AI CORE",
+    "badgeTopRight": "1 GÓI",
+    "engineBadge": "PRO MAX",
+    "iconClass": "bg-chatgpt-pro",
+    "productTheme": "theme-025",
+    "imageAnimation": "glow",
+    "appIconHtml": "<svg width=\"32\" height=\"32\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2Z\" fill=\"#111\"/><path d=\"M8 11H9V13H8V11ZM15 11H16V13H15V11ZM11 15H13V16H11V15Z\" fill=\"white\"/></svg>",
+    "image": "assets/chatgpt-pro.png",
+    "description": "Gói hiệu năng cao cho người dùng chuyên sâu, cần tốc độ, độ ổn định và giới hạn mạnh hơn.",
+    "pricePrefix": "Chỉ từ",
+    "stock": 0,
+    "plans": [
+      {
+        "name": "1 Tháng",
+        "price": 1000000,
+        "original": 2000000
+      },
+      {
+        "name": "1 Năm",
+        "price": 10000000,
+        "original": 24000000
+      }
+    ],
+    "features": [
+      "Dành cho người dùng hạng nặng (Deep AI Core)",
+      "Mô hình xử lý o1-pro tốc độ cực cao",
+      "Không giới hạn context",
+      "Hỗ trợ API cao cấp",
+      "Bảo mật dữ liệu tuyệt đối (Do Not Train)"
+    ]
+  },
+  {
+    "id": "gemini-pro",
+    "name": "Gemini Pro + Antigravity",
+    "title": "Gemini",
+    "subtitle": "ANTIGRAVITY",
+    "badgeTopRight": "1 GÓI",
+    "engineBadge": "5TB DRIVE",
+    "iconClass": "bg-gemini",
+    "productTheme": "theme-038",
+    "imageAnimation": "orbit",
+    "appIconHtml": "<svg width=\"32\" height=\"32\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2Z\" fill=\"white\"/><path d=\"M12 6L13.5 10.5L18 12L13.5 13.5L12 18L10.5 13.5L6 12L10.5 10.5L12 6Z\" fill=\"#8B5CF6\"/></svg>",
+    "image": "assets/gemini.png",
+    "description": "Kèm 5TB Drive, gói năm, phù hợp người dùng hệ sinh thái Google và lưu trữ dung lượng lớn.",
+    "pricePrefix": "Chỉ từ",
+    "stock": 20,
+    "plans": [
+      {
+        "name": "1 Năm",
+        "price": 160000,
+        "original": 320000
+      }
+    ],
+    "features": [
+      "Google One AI Premium (Gemini Advanced)",
+      "Tặng kèm 5TB Google Drive lưu trữ",
+      "Sử dụng Gemini trong Docs, Gmail, Slides",
+      "Tốc độ phản hồi cực nhanh",
+      "Bảo hành trọn đời gói"
+    ]
+  },
+  {
+    "id": "canva-pro",
+    "name": "Canva Pro",
+    "title": "Canva",
+    "subtitle": "DESIGN MASTER",
+    "badgeTopRight": "1 GÓI",
+    "engineBadge": "MAGIC STUDIO",
+    "iconClass": "bg-canva",
+    "productTheme": "theme-052",
+    "imageAnimation": "bounce",
+    "appIconHtml": "<h2>C</h2>",
+    "image": "assets/canva.png",
+    "description": "Truy cập kho mẫu cao cấp, loại bỏ nền bằng AI và tạo thiết kế chuyên nghiệp trong phút chốc.",
+    "pricePrefix": "Chỉ từ",
+    "stock": 50,
+    "plans": [
+      {
+        "name": "1 Năm",
+        "price": 30000,
+        "original": 60000
+      },
+      {
+        "name": "Vĩnh viễn",
+        "price": 80000,
+        "original": 160000
+      }
+    ],
+    "features": [
+      "Tính năng Pro đầy đủ (Nền trong suốt, Magic Resize)",
+      "Hơn 100 triệu ảnh stock, video và âm thanh cao cấp",
+      "Tạo thiết kế với AI (Magic Studio)",
+      "Tài khoản dùng riêng, bảo vệ quyền riêng tư",
+      "Tốc độ tải xuống không giới hạn"
+    ]
+  }
+]

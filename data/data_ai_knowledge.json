@@ -1,0 +1,22 @@
+[
+  {
+    "id": "know_1777708588768",
+    "fileName": "dataTest.txt",
+    "sourceType": "txt",
+    "uploadedAt": "2026-05-02T07:56:28.768Z",
+    "summary": "1 cặp Hỏi/Đáp",
+    "text": "Ask: Shop mình có bán laptop không ạ?\nAnswer: Dạ không ạ, shop tụi em chuyên cung cấp các dịch vụ a.i giá rẻ ạ!",
+    "qaPairs": [
+      {
+        "question": "Ask: Shop mình có bán laptop không ạ?",
+        "answer": "Dạ không ạ, shop tụi em chuyên cung cấp các dịch vụ a.i giá rẻ ạ!"
+      }
+    ],
+    "data": [
+      {
+        "question": "Ask: Shop mình có bán laptop không ạ?",
+        "answer": "Dạ không ạ, shop tụi em chuyên cung cấp các dịch vụ a.i giá rẻ ạ!"
+      }
+    ]
+  }
+]

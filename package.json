@@ -1,0 +1,13 @@
+{
+  "name": "webbanai-workspace",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Workspace scripts for WebBanA.I",
+  "scripts": {
+    "start": "npm --prefix backend start",
+    "snapshot": "node backup/snapshot.js",
+    "check": "npm --prefix backend run check",
+    "docker:up": "docker compose -f docker/docker-compose.yml up --build",
+    "docker:down": "docker compose -f docker/docker-compose.yml down"
+  }
+}
