@@ -73,8 +73,9 @@ function getProductImageMarkup(image = '', alt = '') {
     const safeAlt = escapeHTML(alt);
     const mobileImage = MOBILE_IMAGE_SOURCES[image];
     const img = `<img src="${safeImage}" class="product-main-img" alt="${safeAlt}" loading="lazy" decoding="async" width="640" height="640">`;
-    if (!mobileImage) return img;
-    return `
+    const fillImg = `<img src="${safeImage}" class="product-fill-img" alt="" aria-hidden="true" loading="lazy" decoding="async">`;
+    if (!mobileImage) return fillImg + img;
+    return fillImg + `
         <picture>
             <source media="(max-width: 640px)" srcset="${escapeHTML(mobileImage)}">
             ${img}
@@ -293,7 +294,7 @@ function renderProductGrid(products, query = '') {
                     </div>
                 </div>` : ''}
                 <div class="card-inner">
-                    <div class="card-header ${escapeHTML(p.iconClass || 'bg-chatgpt')}">
+                    <div class="card-header ${escapeHTML(p.iconClass || 'bg-chatgpt')}${p.image ? ' product-image-header' : ''}">
                         ${stockBadge}
                         <div class="header-content${p.image ? ' product-visual-content' : ''}">
                             <div class="engine-badge">${escapeHTML(p.engineBadge || 'PREMIUM')}</div>
@@ -301,10 +302,6 @@ function renderProductGrid(products, query = '') {
                                 <div class="product-img-container img-anim-${imageAnimation}">
                                     <span class="product-image-aura" aria-hidden="true"></span>
                                     ${getProductImageMarkup(p.image, p.name)}
-                                    <div class="product-visual-copy">
-                                        <strong>${escapeHTML(p.title || p.name)}</strong>
-                                        <span>${escapeHTML(p.subtitle || p.engineBadge || '')}</span>
-                                    </div>
                                 </div>
                             ` : `
                                 <div class="app-icon">${p.appIconHtml || ''}</div>
