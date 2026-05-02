@@ -251,7 +251,10 @@ body {
     font-size: 4rem;
     font-weight: 800;
     margin-bottom: 0.5rem;
-    letter-spacing: -1px;
+    line-height: 1.05;
+    letter-spacing: 0;
+    max-width: min(100%, 980px);
+    overflow-wrap: break-word;
 }
 
 .text-gradient {
@@ -273,6 +276,7 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
+    max-width: 100%;
     border: 1px solid rgba(255, 92, 0, 0.2);
     background-color: rgba(255, 92, 0, 0.05);
     padding: 0.75rem 2rem;
@@ -280,6 +284,11 @@ body {
     font-weight: 600;
     font-size: 0.9rem;
     color: var(--text-primary);
+}
+
+.promo-banner span {
+    min-width: 0;
+    overflow-wrap: anywhere;
 }
 
 /* Product Grid */
@@ -290,6 +299,25 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
     gap: 1.8rem;
+}
+
+.product-loading {
+    grid-column: 1 / -1;
+    min-height: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.7rem;
+    color: var(--text-secondary);
+    font-weight: 700;
+}
+
+.product-loading-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent-orange);
+    box-shadow: 0 0 16px rgba(255, 92, 0, 0.45);
 }
 
 /* Product Card with RGB Border */
@@ -309,6 +337,9 @@ body {
     cursor: pointer;
     touch-action: manipulation;
     box-shadow: 0 18px 44px rgba(0, 0, 0, 0.22);
+    contain: layout paint style;
+    content-visibility: auto;
+    contain-intrinsic-size: 560px;
 }
 
 .product-card:not(.is-out-of-stock),
@@ -1309,6 +1340,81 @@ select option {
     }
 }
 
+@media (max-width: 768px), (hover: none) and (pointer: coarse) {
+    .navbar,
+    .header-content,
+    .product-visual-copy,
+    .stock-pill,
+    .engine-badge,
+    .modal-overlay,
+    .cart-sidebar-overlay,
+    .success-notice-overlay {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+
+    .product-card {
+        background: linear-gradient(135deg, var(--card-theme-a), var(--card-theme-b), var(--card-theme-c));
+        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
+        transition: none;
+        contain-intrinsic-size: 470px;
+    }
+
+    .product-card::before,
+    .product-image-aura,
+    .product-img-container::after,
+    .success-notice-card::before {
+        display: none !important;
+        animation: none !important;
+    }
+
+    .product-card:hover,
+    .product-card:hover .product-main-img {
+        transform: none;
+        filter: none;
+        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
+    }
+
+    .product-visual-content {
+        background: rgba(255, 255, 255, 0.12);
+        box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+    }
+
+    .product-main-img {
+        width: 100%;
+        height: 86%;
+        max-width: 260px;
+        max-height: 200px;
+        filter: none;
+        transform: none;
+        transition: none;
+        animation: none !important;
+        will-change: auto;
+    }
+
+    .product-visual-copy {
+        background: rgba(8, 10, 18, 0.58);
+    }
+
+    .stock-pill-ok,
+    .stock-pill-low,
+    .stock-pill-out,
+    .discount-block,
+    .discount,
+    .chat-trigger,
+    .chat-window,
+    .modal-content,
+    .cart-sidebar-content {
+        box-shadow: none;
+    }
+
+    .discount-block::before,
+    .discount::before,
+    .typing-dot {
+        animation: none !important;
+    }
+}
+
 /* ─── Auth UI ─────────────────────────────────────────────────────────────── */
 .nav-login-btn {
     display: flex;
@@ -1420,10 +1526,10 @@ select option {
     .code-display { font-size: 0.9rem; padding: 0 0.25rem; }
     .btn-otp { font-size: 0.75rem; padding: 0.25rem 0.5rem; }
     .product-grid { grid-template-columns: 1fr; }
-    .card-header { height: 240px; }
+    .card-header { height: 220px; }
     .product-main-img {
-        max-width: 300px;
-        max-height: 220px;
+        max-width: 250px;
+        max-height: 190px;
     }
     .product-visual-copy strong { font-size: 0.8rem; }
     .product-visual-copy span { font-size: 0.62rem; }

@@ -21,7 +21,19 @@ const JWT_SECRET = process.env.JWT_SECRET || 'gemisocial_secret_key_12345';
 const MIN_PASSWORD_LENGTH = 8;
 
 fs.mkdirSync(DATA_DIR, { recursive: true });
-app.use(express.static(FRONTEND_DIR, { index: ['index.html'] }));
+app.use(express.static(FRONTEND_DIR, {
+    index: ['index.html'],
+    etag: true,
+    setHeaders: (res, filePath) => {
+        if (/\.html$/i.test(filePath)) {
+            res.setHeader('Cache-Control', 'no-cache');
+            return;
+        }
+        if (/\.(?:css|js|png|jpe?g|webp|gif|svg|ico)$/i.test(filePath)) {
+            res.setHeader('Cache-Control', 'public, max-age=86400');
+        }
+    }
+}));
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 const readJson = (filename) => {

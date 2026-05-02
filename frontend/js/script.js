@@ -37,7 +37,16 @@ const PRODUCT_IMAGE_ANIMATIONS = new Set([
     'drift',
     'none'
 ]);
+const MOBILE_IMAGE_SOURCES = {
+    'assets/canva.png': 'assets/canva-640.jpg',
+    'assets/chatgpt-business.png': 'assets/chatgpt-business-640.jpg',
+    'assets/chatgpt-plus.png': 'assets/chatgpt-plus-640.jpg',
+    'assets/chatgpt-pro.png': 'assets/chatgpt-pro-640.jpg',
+    'assets/gemini.png': 'assets/gemini-640.jpg'
+};
 const MIN_PASSWORD_LENGTH = 8;
+const REDUCE_PRODUCT_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    || window.matchMedia('(hover: none) and (pointer: coarse)').matches;
 
 function getProductTheme(themeId = '') {
     return PRODUCT_THEMES.find(theme => theme.id === themeId) || PRODUCT_THEMES[0];
@@ -54,8 +63,23 @@ function productThemeStyle(theme) {
 }
 
 function getProductImageAnimation(value = '') {
+    if (REDUCE_PRODUCT_MOTION) return 'none';
     const animation = String(value || '').trim();
     return PRODUCT_IMAGE_ANIMATIONS.has(animation) ? animation : 'float';
+}
+
+function getProductImageMarkup(image = '', alt = '') {
+    const safeImage = escapeHTML(image);
+    const safeAlt = escapeHTML(alt);
+    const mobileImage = MOBILE_IMAGE_SOURCES[image];
+    const img = `<img src="${safeImage}" class="product-main-img" alt="${safeAlt}" loading="lazy" decoding="async" width="640" height="640">`;
+    if (!mobileImage) return img;
+    return `
+        <picture>
+            <source media="(max-width: 640px)" srcset="${escapeHTML(mobileImage)}">
+            ${img}
+        </picture>
+    `;
 }
 
 function getPasswordError(password = '') {
@@ -276,7 +300,7 @@ function renderProductGrid(products, query = '') {
                             ${p.image ? `
                                 <div class="product-img-container img-anim-${imageAnimation}">
                                     <span class="product-image-aura" aria-hidden="true"></span>
-                                    <img src="${escapeHTML(p.image)}" class="product-main-img" alt="${escapeHTML(p.name)}" loading="lazy" decoding="async">
+                                    ${getProductImageMarkup(p.image, p.name)}
                                     <div class="product-visual-copy">
                                         <strong>${escapeHTML(p.title || p.name)}</strong>
                                         <span>${escapeHTML(p.subtitle || p.engineBadge || '')}</span>
