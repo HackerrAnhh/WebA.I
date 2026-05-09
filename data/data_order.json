@@ -2,8 +2,8 @@
   {
     "id": "ORD1778346355614",
     "date": "2026-05-09T17:05:55.614Z",
-    "status": "pending",
-    "paymentStatus": "waiting",
+    "status": "cancelled",
+    "paymentStatus": "cancelled",
     "paymentMethod": "bank_transfer",
     "userId": "usr_1778346288660",
     "userName": "Kudo",
@@ -23,6 +23,7 @@
     ],
     "subtotal": 1250000,
     "discount": 125000,
-    "total": 1125000
+    "total": 1125000,
+    "cancelledAt": "2026-05-09T17:06:35.668Z"
   }
 ]
