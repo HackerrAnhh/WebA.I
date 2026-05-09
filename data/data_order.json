@@ -2,8 +2,8 @@
   {
     "id": "ORD1778346074400",
     "date": "2026-05-09T17:01:14.400Z",
-    "status": "pending",
-    "paymentStatus": "waiting",
+    "status": "cancelled",
+    "paymentStatus": "cancelled",
     "paymentMethod": "bank_transfer",
     "userId": "admin_01",
     "userName": "Admin",
@@ -23,7 +23,8 @@
     ],
     "subtotal": 350000,
     "discount": 35000,
-    "total": 315000
+    "total": 315000,
+    "cancelledAt": "2026-05-09T17:01:52.999Z"
   },
   {
     "id": "ORD1778345966512",
