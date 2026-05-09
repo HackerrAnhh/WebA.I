@@ -5,6 +5,7 @@ const path = require('path');
 const jwt = require('jsonwebtoken');
 const zlib = require('zlib');
 const xlsx = require('xlsx');
+const { exec } = require('child_process');
 
 const app = express();
 app.use(cors());
@@ -43,8 +44,41 @@ const readJson = (filename) => {
         return filename === 'data_ai_config.json' ? {} : [];
     }
 };
+
+let syncTimeout = null;
+const syncToGithub = () => {
+    if (syncTimeout) clearTimeout(syncTimeout);
+    syncTimeout = setTimeout(() => {
+        const token = process.env.GITHUB_TOKEN;
+        const repo = process.env.GITHUB_REPO;
+        if (!token || !repo) {
+            console.log('ℹ️ Git sync skipped: GITHUB_TOKEN or GITHUB_REPO not set');
+            return;
+        }
+
+        const remote = `https://${token}@github.com/${repo}.git`;
+        const cmd = `
+            git config user.email "bot@render.com" && \
+            git config user.name "Render Bot" && \
+            git add "${DATA_DIR}/*.json" && \
+            git commit -m "chore: update data [skip ci]" && \
+            git push "${remote}" main
+        `;
+
+        exec(cmd, { cwd: ROOT_DIR }, (error, stdout, stderr) => {
+            if (error) {
+                // Don't log full error to avoid leaking token in some cases, although we use vars
+                console.error(`❌ Git sync failed. Check your GITHUB_TOKEN and Repo path.`);
+                return;
+            }
+            console.log('✅ Git sync success');
+        });
+    }, 5000); // Chờ 5 giây sau lần ghi cuối cùng mới push
+};
+
 const writeJson = (filename, data) => {
     fs.writeFileSync(path.join(DATA_DIR, filename), JSON.stringify(data, null, 2), 'utf8');
+    syncToGithub();
 };
 
 const asArray = (value) => Array.isArray(value) ? value : [];
