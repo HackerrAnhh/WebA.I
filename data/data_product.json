@@ -58,7 +58,7 @@
     "image": "assets/chatgpt-business.png",
     "description": "Giới hạn x3 Plus, ổn định cao, phù hợp team nhỏ và người dùng cần hiệu suất tốt hơn Plus.",
     "pricePrefix": "Chỉ từ",
-    "stock": 0,
+    "stock": 1,
     "plans": [
       {
         "name": "1 Tháng",
