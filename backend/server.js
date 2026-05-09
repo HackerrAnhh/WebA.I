@@ -58,18 +58,16 @@ const syncToGithub = () => {
 
         const remote = `https://${token}@github.com/${repo}.git`;
         
-        // Kiểm tra xem đã có thư mục .git chưa, nếu chưa thì init
-        const checkGitCmd = fs.existsSync(path.join(ROOT_DIR, '.git')) 
-            ? '' 
-            : `git init && git remote add origin "${remote}" && git fetch && git checkout -b main origin/main && `;
-
         const cmd = `
-            ${checkGitCmd}
+            git init && \
             git config user.email "bot@render.com" && \
             git config user.name "Render Bot" && \
+            git remote add origin "${remote}" || git remote set-url origin "${remote}" && \
+            git fetch --depth=1 origin main && \
+            git reset origin/main && \
             git add -f "${DATA_DIR}/*.json" && \
-            git commit -m "chore: update data [skip ci]" && \
-            git push "${remote}" main
+            (git commit -m "chore: update data [skip ci]" || echo "No changes") && \
+            git push origin HEAD:main
         `;
 
         exec(cmd, { cwd: ROOT_DIR }, (error, stdout, stderr) => {
