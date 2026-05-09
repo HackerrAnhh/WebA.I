@@ -1,0 +1,28 @@
+[
+  {
+    "id": "ORD1778345966512",
+    "date": "2026-05-09T16:59:26.512Z",
+    "status": "pending",
+    "paymentStatus": "waiting",
+    "paymentMethod": "bank_transfer",
+    "userId": "usr_1778345917324",
+    "userName": "Kudo",
+    "name": "Kudo",
+    "phone": "0932690343",
+    "email": "long@gmail.com",
+    "memo": "Thanh toan 0932690343",
+    "items": [
+      {
+        "productId": "chatgpt-plus",
+        "productName": "ChatGPT Plus",
+        "planName": "1 Năm",
+        "price": 1250000,
+        "quantity": 2,
+        "lineTotal": 2500000
+      }
+    ],
+    "subtotal": 2500000,
+    "discount": 250000,
+    "total": 2250000
+  }
+]
