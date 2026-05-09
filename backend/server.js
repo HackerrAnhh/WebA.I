@@ -60,7 +60,7 @@ const syncToGithub = () => {
         const cmd = `
             git config user.email "bot@render.com" && \
             git config user.name "Render Bot" && \
-            git add "${DATA_DIR}/*.json" && \
+            git add -f "${DATA_DIR}/*.json" && \
             git commit -m "chore: update data [skip ci]" && \
             git push "${remote}" main
         `;
