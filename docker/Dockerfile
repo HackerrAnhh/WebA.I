@@ -2,6 +2,8 @@ FROM node:20-alpine
 
 WORKDIR /app
 
+RUN apk add --no-cache git
+
 ENV NODE_ENV=production
 ENV HOST=0.0.0.0
 ENV PORT=10000
