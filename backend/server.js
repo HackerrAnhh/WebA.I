@@ -57,7 +57,14 @@ const syncToGithub = () => {
         }
 
         const remote = `https://${token}@github.com/${repo}.git`;
+        
+        // Kiểm tra xem đã có thư mục .git chưa, nếu chưa thì init
+        const checkGitCmd = fs.existsSync(path.join(ROOT_DIR, '.git')) 
+            ? '' 
+            : `git init && git remote add origin "${remote}" && git fetch && git checkout -b main origin/main && `;
+
         const cmd = `
+            ${checkGitCmd}
             git config user.email "bot@render.com" && \
             git config user.name "Render Bot" && \
             git add -f "${DATA_DIR}/*.json" && \
@@ -67,8 +74,9 @@ const syncToGithub = () => {
 
         exec(cmd, { cwd: ROOT_DIR }, (error, stdout, stderr) => {
             if (error) {
-                // Don't log full error to avoid leaking token in some cases, although we use vars
-                console.error(`❌ Git sync failed. Check your GITHUB_TOKEN and Repo path.`);
+                const safeStderr = (stderr || '').replace(token, '***');
+                console.error(`❌ Git sync failed. Error: ${error.message.replace(token, '***')}`);
+                if (safeStderr) console.error(`Details: ${safeStderr}`);
                 return;
             }
             console.log('✅ Git sync success');
