@@ -6,13 +6,5 @@
     "role": "admin",
     "name": "Admin",
     "email": ""
-  },
-  {
-    "id": "usr_1778346894951",
-    "username": "user1",
-    "password": "11111111",
-    "name": "Kudo",
-    "email": "",
-    "role": "user"
   }
 ]
