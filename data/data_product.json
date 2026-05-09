@@ -13,7 +13,7 @@
     "image": "assets/chatgpt-plus.png",
     "description": "Truy cập GPT-4o không giới hạn, phù hợp học tập, làm việc và sáng tạo nội dung hằng ngày.",
     "pricePrefix": "Chỉ từ",
-    "stock": 99,
+    "stock": 96,
     "plans": [
       {
         "name": "1 Tháng",
@@ -58,7 +58,7 @@
     "image": "assets/chatgpt-business.png",
     "description": "Giới hạn x3 Plus, ổn định cao, phù hợp team nhỏ và người dùng cần hiệu suất tốt hơn Plus.",
     "pricePrefix": "Chỉ từ",
-    "stock": 1,
+    "stock": 0,
     "plans": [
       {
         "name": "1 Tháng",
