@@ -56,9 +56,10 @@ const syncToGithub = () => {
             return;
         }
 
-        const remote = `https://${token}@github.com/${repo}.git`;
+        const remote = `https://x-access-token:${token}@github.com/${repo}.git`;
         
         const cmd = `
+            export GIT_TERMINAL_PROMPT=0 && \
             git init && \
             git config user.email "bot@render.com" && \
             git config user.name "Render Bot" && \
@@ -68,6 +69,7 @@ const syncToGithub = () => {
             git add -A "${DATA_DIR}/" && \
             (git commit -m "chore: update data [skip ci]" || echo "No changes") && \
             git push origin HEAD:main
+
 
         `;
 
