@@ -14,7 +14,7 @@ pnpm-debug.log*
 .DS_Store
 Thumbs.db
 
+
 .claude/
 backup/memories.md
-Question_Data.xlsx
-data/Question_Data.xlsx
+
