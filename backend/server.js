@@ -65,9 +65,10 @@ const syncToGithub = () => {
             git remote add origin "${remote}" || git remote set-url origin "${remote}" && \
             git fetch --depth=1 origin main && \
             git reset origin/main && \
-            git add -f "${DATA_DIR}/*.json" && \
+            git add -A "${DATA_DIR}/" && \
             (git commit -m "chore: update data [skip ci]" || echo "No changes") && \
             git push origin HEAD:main
+
         `;
 
         exec(cmd, { cwd: ROOT_DIR }, (error, stdout, stderr) => {
